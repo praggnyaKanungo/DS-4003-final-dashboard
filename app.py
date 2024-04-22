@@ -12,8 +12,7 @@ app = dash.Dash(
     __name__,
     external_stylesheets=[
         "https://cdn.jsdelivr.net/npm/bootswatch@5.3.0/dist/minty/bootstrap.min.css",
-    ],
-    assets_folder='assets',  # Custom assets folder
+    ], # Custom assets folder
     suppress_callback_exceptions=True,
 )
 
