@@ -18,6 +18,14 @@ app = dash.Dash(
     suppress_callback_exceptions=True,
 )
 
+server = app.server
+
+app.title = "CO2 Emissions Per Capita Analysis"
+# This is my block for the App layout
+# this is for defining the HTML layout using Dash HTML components
+
+# Load the data
+
 # Navigation bar with the dashboard title
 navbar = html.Nav(
     className="navbar navbar-expand-lg navbar-light bg-primary",
