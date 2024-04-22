@@ -5,6 +5,8 @@ import plotly.express as px
 import pandas as pd
 
 # Load the data
+#data_path = r"C:\Users\pragg\Downloads\data.csv"
+#data = pd.read_csv(data_path)
 data = pd.read_csv("data/co2_per_capita.csv")
 
 # Dash app initialization with external Bootstrap stylesheet and custom assets
@@ -12,13 +14,14 @@ app = dash.Dash(
     __name__,
     external_stylesheets=[
         "https://cdn.jsdelivr.net/npm/bootswatch@5.3.0/dist/minty/bootstrap.min.css",
-    ], # Custom assets folder
+    ],  # Custom assets folder
     suppress_callback_exceptions=True,
 )
 
 server = app.server
 
 app.title = "CO2 Emissions Per Capita Analysis"
+
 # This is my block for the App layout
 # this is for defining the HTML layout using Dash HTML components
 
@@ -63,6 +66,47 @@ radio_group_with_mode = html.Div(
             labelClassName="btn btn-outline-primary",  # Label class for styling
             labelStyle={"margin-right": "10px"},  # Horizontal layout spacing
             inline=True,  # Horizontal layout
+        ),
+    ],
+)
+
+data_source_info = html.Div(
+    className="card border-info mb-3",  # Styling with the 'info' color
+    style={"width": "100%"},  # Set the card's width to 100%
+    children=[
+        html.Div("Data Source Information", className="card-header"),  # Header text
+        html.Div(
+            className="card-body",
+            children=[
+                html.H4("Source Information", className="card-title"),  # Card title
+                html.P(  # Card content text with nested elements in a list
+                    [
+                        "The source of this data is gapminder.com. The source URL can be found ",
+                        html.A("here", href="http://gapm.io/dco2_consumption_historic", target="_blank"),  # Add hyperlink
+                        ". This data was collected by the World Bank and is one of the many datasets the World Bank offers about countries to research "
+                        "and analyze patterns and data-related relationships. The World Bank collects this data from the system of countries that "
+                        "agree to be members of this cause. This collection of CO2 Emissions Per Capita data serves as an incredible resource for "
+                        "researchers to note significant changes in CO2 emissions per capita, which could also be success criteria for evaluating "
+                        "the success of government-levied policies in fighting climate change in certain countries.",
+                    ],
+                    className="card-text",  # Class for card text styling
+                ),
+                html.P(
+                    [
+                        "Clearly, one of the direct contributing factors to climate change and the warming of the Earth is the increasing CO2 emissions "
+                        "around the world. With this dashboard, I hope to create an impact on the user's mind and make them aware of the increasing CO2 emissions, "
+                        "and how their country and other countries around the world negatively impact this. This dashboard is my call for change.",
+                    ],
+                    className="card-text",
+                ),
+                html.P(
+                    [
+                        "This dashboard was created by Praggnya Kanungo for DS 4003. The following is the link to the GitHub repository with all the work for this project: ",
+                        html.A("here", href="https://github.com/praggnyaKanungo/finalDashboard/tree/main", target="_blank"),  # Add hyperlink
+                    ],
+                    className="card-text",
+                ),
+            ],
         ),
     ],
 )
@@ -147,6 +191,11 @@ app.layout = html.Div([
     html.Div(
         id="mode-display",
         style={"padding": "20px"},
+    ),
+
+    html.Div(
+        children=[data_source_info],  # Placing the new text card at the end
+        style={"padding": "20px"},  # Padding for consistency
     ),
 ])
 
@@ -248,7 +297,7 @@ def update_mode_content(mode):
                                         children=[
                                             html.H4("Histogram Description", className="card-title"),
                                             html.P(
-                                                "The histogram displays the distribution of CO2 emissions per capita across all countries. It provides a visual representation of how emissions are spread over time and identifies high and low-emission countries.",
+                                                "The histogram displays the distribution of CO2 emissions per capita across all countries. It provides a visual representation of the values that have been recorded.",
                                                 className="card-text",
                                             ),
                                         ],
@@ -666,3 +715,4 @@ def update_year_graph(selected_year):
 # Start the server
 if __name__== '__main__':
     app.run_server(debug=True)
+
