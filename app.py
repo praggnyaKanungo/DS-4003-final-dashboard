@@ -5,8 +5,7 @@ import plotly.express as px
 import pandas as pd
 
 # Load the data
-data_path = r"C:\Users\pragg\Downloads\data.csv"
-data = pd.read_csv(data_path)
+data = pd.read_csv("data/co2_per_capita.csv")
 
 # Dash app initialization with external Bootstrap stylesheet and custom assets
 app = dash.Dash(
