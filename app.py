@@ -74,7 +74,7 @@ data_source_info = html.Div(
     className="card border-info mb-3",  # Styling with the 'info' color
     style={"width": "100%"},  # Set the card's width to 100%
     children=[
-        html.Div("Data Source Information", className="card-header"),  # Header text
+        html.Div(" ", className="card-header"),  # Header text
         html.Div(
             className="card-body",
             children=[
