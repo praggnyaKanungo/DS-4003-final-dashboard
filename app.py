@@ -1,3 +1,5 @@
+#Praggnya Kanungo
+#DS 4003
 import dash
 from dash import dcc, html
 from dash.dependencies import Input, Output
@@ -9,12 +11,12 @@ import pandas as pd
 #data = pd.read_csv(data_path)
 data = pd.read_csv("data/co2_per_capita.csv")
 
-# Dash app initialization with external Bootstrap stylesheet and custom assets
+# Dash app initialization with external Bootstrap stylesheet
 app = dash.Dash(
     __name__,
     external_stylesheets=[
         "https://cdn.jsdelivr.net/npm/bootswatch@5.3.0/dist/minty/bootstrap.min.css",
-    ],  # Custom assets folder
+    ],  
     suppress_callback_exceptions=True,
 )
 
@@ -22,10 +24,6 @@ server = app.server
 
 app.title = "CO2 Emissions Per Capita Analysis"
 
-# This is my block for the App layout
-# this is for defining the HTML layout using Dash HTML components
-
-# Load the data
 
 # Navigation bar with the dashboard title
 navbar = html.Nav(
@@ -118,6 +116,8 @@ mode_descriptions = {
     "year_view": "In the Year View mode, you can analyze CO2 emissions per capita for a specific year across various countries. This mode helps you visually identify the trend in a year."
 }
 
+# This is my block for the App layout
+# this is for defining the HTML layout using Dash HTML components
 app.layout = html.Div([
     navbar,  # Include the navbar at the top
     
@@ -194,15 +194,10 @@ app.layout = html.Div([
     ),
 
     html.Div(
-        children=[data_source_info],  # Placing the new text card at the end
-        style={"padding": "20px"},  # Padding for consistency
+        children=[data_source_info],  # Placing the new text card at the end!
+        style={"padding": "20px"},  # Padding for consistency so it doesnt look squished
     ),
 ])
-
-# Callbacks and other functionality remain the same
-
-
-# Callbacks and other functionality remain the same
 
 
 # Callback to update the current mode display
@@ -252,13 +247,13 @@ def update_mode_content(mode):
                 # Container for the line graph and its text card
                 html.Div(
                     children=[
-                        # Line graph (66% width)
+                        # Line graph (75% width)
                         html.Div(
                             dcc.Graph(id="worldview-line-graph"),
-                            style={"width": "75%", "padding-right": "10px"},  # 66% width with padding-right
+                            style={"width": "75%", "padding-right": "10px"},  #  padding-right
                         ),
                         
-                        # Text card for line graph description (33% width)
+                        # Text card for line graph description (25% width)
                         html.Div(
                             html.Div(
                                 className="card border-primary mb-3",
@@ -277,7 +272,7 @@ def update_mode_content(mode):
                                 ],
                                 style={"max-width": "20rem"},  # Consistent card size
                             ),
-                            style={"width": "25%", "padding-left": "10px"},  # 33% width with padding-left
+                            style={"width": "25%", "padding-left": "10px"},  #  padding-left
                         ),
                     ],
                     style={"display": "flex", "justify-content": "space-between", "align-items": "center"},  # Flex layout
@@ -378,7 +373,7 @@ def update_mode_content(mode):
                                     ],
                                 ),
                             ],
-                            style={"width": "45%", "padding-bottom": "10px"},  # 50% width with padding-bottom
+                            style={"width": "45%", "padding-bottom": "10px"},  # 45% width with padding-bottom
                         ),
 
                         # Box plot and its text card
@@ -402,7 +397,7 @@ def update_mode_content(mode):
                                     ],
                                 ),
                             ],
-                            style={"width": "45%", "padding-bottom": "10px"},  # 50% width with padding-bottom
+                            style={"width": "45%", "padding-bottom": "10px"},  # 45% width with padding-bottom
                         ),
                     ],
                     style={"display": "flex", "justify-content": "space-between", "align-items": "center"},  # Flex layout for 50/50 space
@@ -473,7 +468,7 @@ def update_mode_content(mode):
                                     ],
                                 ),
                             ],
-                            style={"width": "45%", "padding-bottom": "10px"},  # 50% width for the text card
+                            style={"width": "45%", "padding-bottom": "10px"},  # 45% width for the text card
                         ),
 
                         # Violin graph for multiple countries and its text card
@@ -497,7 +492,7 @@ def update_mode_content(mode):
                                     ],
                                 ),
                             ],
-                            style={"width": "45%", "padding-bottom": "10px"},  # 50% width for the text card
+                            style={"width": "45%", "padding-bottom": "10px"},  # 45% width for the text card
                         ),
                     ],
                     style={"display": "flex", "justify-content": "space-between", "align-items": "center"},  # Flex layout for 50/50 space
@@ -550,7 +545,7 @@ def update_mode_content(mode):
                                         ],
                                     ),
                                 ],
-                                style={"max-width": "20rem"},  # Ensure consistent card size
+                                style={"max-width": "20rem"},  
                             ),
                             style={"width": "25%", "padding-left": "10px"},  # 25% width with padding-left
                         ),
@@ -558,10 +553,10 @@ def update_mode_content(mode):
                     style={"display": "flex", "justify-content": "space-between", "align-items": "center"},  # Flex layout
                 ),
             ],
-            style={"padding": "20px"},  # Outer padding for spacing
+            style={"padding": "20px"}, 
         )
 
-    # Return the mode description and content
+    # Returning here the mode description and content
     return mode_description, content
 
 # Callback for updating graphs in the Worldview mode
@@ -571,11 +566,13 @@ def update_mode_content(mode):
     [Input("worldview-year-slider", "value")]
 )
 def update_worldview_graphs(year_range):
+    # First I ma filtering the data based on the selected year rang
     filtered_data = data[
         (data["year"] >= year_range[0]) &
         (data["year"] <= year_range[1])
     ]
-    
+
+    # I am creating a line graph showing CO2 emissions
     line_fig = px.line(
         filtered_data,
         x="year",
@@ -584,10 +581,10 @@ def update_worldview_graphs(year_range):
         title="Global CO2 Emissions Per Capita Over Time",
     )
     line_fig.update_layout(
-        xaxis_title="Year",  # Renamed
-        yaxis_title="CO2 Per Capita",  # Renamed
+        xaxis_title="Year",  # Renaming 
+        yaxis_title="CO2 Per Capita",  # Renaming
     )
-
+# Creating a histogram showing the distribution of CO2 emissions per capita
     histogram_fig = px.histogram(
         filtered_data,
         x="co2_per_capita",
@@ -595,10 +592,10 @@ def update_worldview_graphs(year_range):
         title="Distribution of Global CO2 Emissions Per Capita",
     )
     histogram_fig.update_layout(
-        xaxis_title="CO2 Per Capita",  # Renamed
-        yaxis_title="Count",  # Renamed
+        xaxis_title="CO2 Per Capita",  # Renaming just for appearance of graph
+        yaxis_title="Count",  # Renamed for appearance of graph
     )
-
+# Returning the updated figure
     return line_fig, histogram_fig
 
 
@@ -611,7 +608,8 @@ def update_worldview_graphs(year_range):
      Input("year-slider", "value")]
 )
 def update_single_country_graphs(selected_country, year_range):
-    #    # I am first filtering the data based on the selected country and year range
+    # this was difficult because I keep getting errors but what works is
+    #I am first filtering the data based on the selected country and year range
     filtered_data = data[(data['country'] == selected_country) &
                          (data['year'] >= year_range[0]) &
                          (data['year'] <= year_range[1])]
@@ -647,7 +645,7 @@ def update_single_country_graphs(selected_country, year_range):
     # Now, finally I am returniong both figures
     return line_fig, box_fig
 
-# Fix for Multiple Country View with proper data structure
+#now basically I did the same thing for multi country as single country view, except now for multiple countries
 
 @app.callback(
     [Output("multi-country-line-graph", "figure"),
@@ -670,8 +668,8 @@ def update_multi_country_graphs(selected_countries, year_range):
         title="CO2 Emissions Per Capita Over Time for Selected Countries",
     )
     line_fig.update_layout(
-        xaxis_title="Year",  # Renamed
-        yaxis_title="CO2 Per Capita",  # Renamed
+        xaxis_title="Year",  
+        yaxis_title="CO2 Per Capita",  
     )
 
     violin_fig = px.violin(
@@ -682,21 +680,24 @@ def update_multi_country_graphs(selected_countries, year_range):
         title="Distribution of CO2 Emissions Per Capita for Selected Countries",
     )
     violin_fig.update_layout(
-        yaxis_title="CO2 Per Capita",  # Renamed
+        yaxis_title="CO2 Per Capita",  
     )
 
     return line_fig, violin_fig
 
 
+#this is for year view
 @app.callback(
     Output("year-bar-graph", "figure"),
     [Input("single-year-slider", "value")]
 )
 def update_year_graph(selected_year):
+    # First going to filter the data to get records for the selected year
     filtered_data = data[
         (data["year"] == selected_year)
     ]
-    
+
+    # I am creating a bar graph showing CO2 emissions for different country
     bar_fig = px.bar(
         filtered_data,
         x="country",
@@ -704,10 +705,11 @@ def update_year_graph(selected_year):
         title=f"CO2 Emissions Per Capita in {selected_year}",
     )
     bar_fig.update_layout(
-        xaxis_title="Country",  # Renamed
-        yaxis_title="CO2 Per Capita",  # Renamed
+        xaxis_title="Country", 
+        yaxis_title="CO2 Per Capita",  
     )
 
+    # Returning the updated figure
     return bar_fig
 
 
