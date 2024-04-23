@@ -80,7 +80,7 @@ data_source_info = html.Div(
                 html.P(  # Card content text with nested elements in a list
                     [
                         "The source of this data is gapminder.com. The source URL can be found ",
-                        html.A("here", href="http://gapm.io/dco2_consumption_historic", target="_blank"),  # Add hyperlink
+                        html.A("here", href="http://gapm.io/dco2_consumption_historic", target="_blank"),  # Adding hyperlink
                         ". This data was collected by the World Bank and is one of the many datasets the World Bank offers about countries to research "
                         "and analyze patterns and data-related relationships. The World Bank collects this data from the system of countries that "
                         "agree to be members of this cause. This collection of CO2 Emissions Per Capita data serves as an incredible resource for "
@@ -100,7 +100,7 @@ data_source_info = html.Div(
                 html.P(
                     [
                         "This dashboard was created by Praggnya Kanungo for DS 4003. The following is the link to the GitHub repository with all the work for this project: ",
-                        html.A("here", href="https://github.com/praggnyaKanungo/finalDashboard/tree/main", target="_blank"),  # Add hyperlink
+                        html.A("here", href="https://github.com/praggnyaKanungo/finalDashboard/tree/main", target="_blank"),  # Adding hyperlink
                     ],
                     className="card-text",
                 ),
